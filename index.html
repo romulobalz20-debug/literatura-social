@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Literatura & Sociedade</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 20px;
+}
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-width: 700px;
+  margin: auto;
+}
+button {
+  padding: 10px 15px;
+  margin: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.primary { background-color: #2563eb; color: white; }
+.secondary { background-color: #10b981; color: white; }
+.progress {
+  height: 10px;
+  background: #ddd;
+  border-radius: 10px;
+  margin: 15px 0;
+}
+.progress-bar {
+  height: 100%;
+  background: #2563eb;
+  width: 0%;
+}
+</style>
+</head>
+<body>
+
+<h1>🎮 Literatura & Sociedade</h1>
+
+<div>
+  <p>⭐ Pontos: <span id="pontos">0</span> | 🏆 Nível: <span id="nivel">1</span></p>
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 id="titulo"></h2>
+  <p id="texto"></p>
+  <p><strong id="questao"></strong></p>
+  <p id="resposta" style="display:none; color:green;"></p>
+
+  <button class="primary" onclick="responder()">Responder (+10 XP)</button>
+  <button class="secondary" onclick="proximo()">Próxima Missão</button>
+</div>
+
+<script>
+const temas = [
+  {
+    titulo: "Modernismo e Identidade",
+    texto: "O Modernismo rompeu com padrões europeus e valorizou a identidade brasileira.",
+    questao: "Como isso se relaciona com movimentos sociais atuais?",
+    resposta: "Assim como o Modernismo rompeu padrões culturais, hoje movimentos sociais rompem padrões de exclusão."
+  },
+  {
+    titulo: "Realismo e Desigualdade Social",
+    texto: "O Realismo denunciou desigualdades sociais.",
+    questao: "Quais desigualdades ainda existem hoje?",
+    resposta: "Desigualdade social e exclusão ainda são desafios contemporâneos."
+  },
+  {
+    titulo: "Literatura Contemporânea e Diversidade",
+    texto: "Autores atuais valorizam vozes marginalizadas.",
+    questao: "Como a literatura promove inclusão?",
+    resposta: "Ao ampliar empatia e dar visibilidade a grupos historicamente excluídos."
+  }
+];
+
+let indice = 0;
+let pontos = 0;
+let nivel = 1;
+
+function carregarTema() {
+  document.getElementById("titulo").innerText = temas[indice].titulo;
+  document.getElementById("texto").innerText = temas[indice].texto;
+  document.getElementById("questao").innerText = temas[indice].questao;
+  document.getElementById("resposta").style.display = "none";
+}
+
+function responder() {
+  document.getElementById("resposta").innerText = temas[indice].resposta;
+  document.getElementById("resposta").style.display = "block";
+  pontos += 10;
+  if (pontos % 30 === 0) nivel++;
+  document.getElementById("pontos").innerText = pontos;
+  document.getElementById("nivel").innerText = nivel;
+  document.getElementById("progressBar").style.width = (pontos % 30) * 3.33 + "%";
+}
+
+function proximo() {
+  if (indice < temas.length - 1) {
+    indice++;
+    carregarTema();
+  } else {
+    alert("🎉 Missão Concluída!");
+  }
+}
+
+carregarTema();
+</script>
+
+</body>
+</html>
